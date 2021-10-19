@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         return Inertia::render('UserAll', [
-            'users' => User::latest()->get(),
+            'users' => User::latest('id')->get(),
         ]);
     }
 
@@ -106,6 +106,32 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'User updated successfully.'
+        ], 201);
+    }
+
+    /**
+     * Delete the user of the given user id.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($id)
+    {
+        $user = User::find($id);
+        if (! $user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found with the id: '. $id,
+            ], 404);
+        }
+
+        $message = "User with the id ($id) deleted successfully.";
+        $user->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+            'users' => User::latest('id')->get(),
         ], 201);
     }
 }

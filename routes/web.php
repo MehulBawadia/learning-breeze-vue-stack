@@ -34,5 +34,6 @@ Route::get('/users/create', [UserController::class, 'create'])->middleware(['aut
 Route::post('/users/create', [UserController::class, 'store'])->middleware(['auth', 'verified'])->name('users.store');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->middleware(['auth', 'verified'])->name('users.edit');
 Route::patch('/users/{id}/update', [UserController::class, 'update'])->middleware(['auth', 'verified'])->name('users.update');
+Route::delete('/users/{id}/delete', [UserController::class, 'delete'])->middleware(['auth', 'verified'])->name('users.delete');
 
 require __DIR__.'/auth.php';
