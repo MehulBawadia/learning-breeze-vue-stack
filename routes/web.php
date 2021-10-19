@@ -32,5 +32,7 @@ Route::get('/dashboard', function () {
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 Route::get('/users/create', [UserController::class, 'create'])->middleware(['auth', 'verified'])->name('users.create');
 Route::post('/users/create', [UserController::class, 'store'])->middleware(['auth', 'verified'])->name('users.store');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->middleware(['auth', 'verified'])->name('users.edit');
+Route::patch('/users/{id}/update', [UserController::class, 'update'])->middleware(['auth', 'verified'])->name('users.update');
 
 require __DIR__.'/auth.php';

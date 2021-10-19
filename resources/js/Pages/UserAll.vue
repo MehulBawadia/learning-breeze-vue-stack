@@ -29,6 +29,9 @@
                                 <span class="text-gray-500">E-Mail:</span>
                                 <span class="ml-3 text-gray-800" v-text="user.email"></span>
                             </div>
+                            <div>
+                                <Link :href="route('users.edit', user.id)" class="inline-block mt-3 bg-indigo-500 duration-150 ease-in-out hover:bg-indigo-600 px-3 py-1 rounded text-white transition">Edit User</Link>
+                            </div>
                         </div>
                     </div>
                 </div>

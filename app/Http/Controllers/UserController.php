@@ -58,4 +58,54 @@ class UserController extends Controller
             'message' => 'User added successfully.'
         ], 201);
     }
+
+    /**
+     * Display the edit form for the given user id.
+     *
+     * @param  int  $id
+     * @return void|\Inertia\Response
+     */
+    public function edit($id)
+    {
+        $user = User::find($id);
+        if (! $user) {
+            abort(404);
+        }
+
+        return Inertia::render('UserEdit', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * Update the user of the given user id.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email:filter|unique:users,email,'. $id,
+        ]);
+
+        $user = User::find($id);
+        if (! $user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found with the id: '. $id,
+            ], 404);
+        }
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User updated successfully.'
+        ], 201);
+    }
 }
