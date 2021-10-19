@@ -3,9 +3,13 @@
 
     <BreezeAuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                List of all Users
-            </h2>
+            <div class="flex justify-between items-center">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    List of all Users
+                </h2>
+
+                <Link :href="route('users.create')" class="bg-indigo-500 duration-150 ease-in-out hover:bg-indigo-600 px-3 py-2 rounded text-white transition">Add New User</Link>
+            </div>
         </template>
 
         <div class="py-12">
@@ -35,12 +39,13 @@
 
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
         BreezeAuthenticatedLayout,
         Head,
+        Link,
     },
 
     props: ['users'],
